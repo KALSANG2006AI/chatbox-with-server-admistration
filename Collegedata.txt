@@ -32,4 +32,223 @@ The academic calendar runs two semesters: Semester 1 from July to November and S
 
 Student support services include counseling available Monday to Friday from 10 AM to 4 PM, scholarship information on the college website, and an active career guidance and placement cell.
 
-This comprehensive data covers most student queries and should be perfect for testing your AI chatbot prototype.
+Principal
+👤 Name: Dr. Tenzin Pasang
+📧 Email: principal@dalailamainstitute.edu.in
+📖 Profile: PhD in Physics (University of Mysore), specialized in Positron Annihilation Spectroscopy. Former Director at Drepung Losel Ling Meditation and Science Centre, Mundgod. Conducted research in PAS, worked with GE (USA) and Cavin Kare (India). Currently Principal at DLIHE.
+
+Administrator
+👤 Name: Choegyal Tashi (Acharya)
+📧 Email: administrator@dalailamainstitute.edu.in
+📖 Profile: Acharya degree from Central University of Tibetan Studies, Sarnath. Former PGT & Headmaster at TCV Suja, Principal at TCV Ladakh, Headmaster at TCV Dharamshala.
+
+Dean of Regular Studies
+👤 Name: Ngawang Gyatso
+📧 Email: ngyatso@dalailamainstitute.edu.in | dean-regular-studies@dalailamainstitute.edu.in
+📱 Phone: 9071907889
+📖 Profile: Over 10 years teaching Indian History, Modern China & Japan. Served as warden, HOD, and Dean. Education: BA (Loyola College), MA & MPhil (Madras Christian College), PhD Scholar at Christ University.
+
+IT Manager
+👤 Name: Tenzin Namgyal
+📖 Profile: Degree in Fine Arts, Advanced Diploma in Multimedia (Arena). Worked as Illustrator & Designer at TCV Head Office (2000–2007). Joined DLIHE in 2008, became IT Manager in 2017. Manages IT & publications.
+
+Head of Specialized Department
+👤 Name: Dr. Geshe Lobsang Ngodup
+📧 Email: lngodup@dalailamainstitute.edu.in | hod-specialized-centre@dalailamainstitute.edu.in
+📖 Profile: PhD in Tibetan Language (University of Bangalore). Geshe Tsokrampa (Drepung Monastic University). Master degrees in Buddhist Philosophy, Madhyamika, Prajnaparamita from Dharamsala institutes.
+
+Head of Arts Department
+👤 Name: Tenzin Lamsang
+📧 Email: tlamsang@dalailamainstitute.edu.in | hod-arts-department@dalailamainstitute.edu.in
+📱 Phone: 9886482253
+📖 Profile: 12 years teaching English Language & Literature. Former instructor for Geshes English Program. Member of board of examiners and Staff Welfare Committee.
+
+Head of Commerce Department
+👤 Name: Tenzin Sangmo
+📧 Email: tsangmo@dalailamainstitute.edu.in | hod-commerce-department@dalailamainstitute.edu.in
+📱 Phone: 8971665841
+📖 Profile: UG (St. Joseph College of Commerce), PG & MPhil (Christ University). Published research on Tibetan Green Book’s impact on exile livelihoods. Presented at multiple conferences.
+
+Head of BCA Department
+👤 Name: Rinchen Tso
+📧 Email: rinchen@dalailamainstitute.edu.in
+📱 Phone: 7019714208
+📖 Profile: BA (Computer Science, St. Joseph University), Masters (Computer Engineering Applications, Chandigarh). Experienced in teaching C, Python, C++, Shell, DBMS, Networking. Engaged in SEE Learning workshops.
+
+Lecturer in Buddhist Philosophy & Logic
+👤 Name: Geshe Nyima Wangchuk
+📧 Email: nyimawang@dalailalainstitute.edu.in
+📱 Phone: 9108421082
+📖 Profile: Born in Lithang, Tibet. Escaped to India in 1990. Studied philosophy at Drepung Monastery, Karnataka. Teaches Buddhist philosophy and logic.
+
+Tibetan Lecturer
+👤 Name: Pasang Tsering (Acharya)
+📖 Profile: Acharya degree (Central Institute of Higher Tibetan Studies). Former Tibetan language teacher in TCV schools. At DLIHE since 2010, teaches Tibetan language and CTA democracy/charter. Editor of Tibetan Facebook page. Received 20 years of service award.
+
+Lecturer in General Science & Environmental Studies
+👤 Name: Tashi Phuntsok
+📧 Email: tphuntsok@dalailamainstitute.edu.in
+📱 Phone: 9900796910
+📖 Profile: 15+ years teaching science, biology & environmental studies. Chairperson of Environmental Committee. Supervisor of AV system & hostel warden. Education: B.Sc. Plant Biology (Chennai), M.Sc. Botany (Madras).
+
+Lecturer in Psychology & Counselor
+👤 Name: Penpa Dolma
+📧 Email: pdolma@dalailamainstitute.edu.in | dolmapenpa2014@gmail.com
+📱 Phone: 9741351639
+📖 Profile: Teaching psychology since 2010. Former counselor at TCV Bylakuppe. Invited speaker at CTA and Men Tsee Khang workshops. Education: BA (Sophia College), MA (Clinical Psychology, Vadodara), PG Diploma in Counselling.
+
+Lecturer in Tibetan Language & Literature
+👤 Name: Dr. Kunchok A
+📧 Email: kunchokad@dalailamainstitute.edu.in
+📖 Profile: PhD in Tibetan Literature (University of Bangalore). Rigney-Rabjampa, B.Ed from Kirti Institute. Former Research Head of Tibetan Writers Abroad PEN Centre.
+
+Commerce Lecturer
+👤 Name: Ngawang Tenzin
+📧 Email: ngawang@dalailamainstitute.edu.in | dean-staff-studnets-welfare@dalailamainstitute.edu.in
+📱 Phone: 9980686613
+📖 Profile: Escaped Tibet in 1997. Educated at TCV, BA Commerce (Andhra Loyola), MBA (Mysore University). Now lecturer & Dean of Staff & Student Welfare.
+
+Lecturer in Tibetan Language & Literature
+👤 Name: Nyenthar
+📖 Profile: PhD scholar in Yoga & Tantra (BHU). Studied at Dharamsala and BHU. Member of IATS. Translator and researcher in Gelukpa monastic history.
+
+Lecturer in Tibetan Language & Literature
+👤 Name: Yeshi Dorji (Acharya)
+📖 Profile: Acharya (MA) in Tibetan Language & Literature (Central Institute of Higher Tibetan Studies, Sarnath).
+
+Lecturer in Tibetan Language & Literature
+👤 Name: Dr. Rigzin Lhundup
+📧 Email: rigzin@dalailamainstitute.in.edu
+📱 Phone: 7018326182
+📖 Profile: PhD in Buddhist Hermeneutics. Published 15+ works. Former member of 17th Tibetan Parliament. Education: Shastri, Acharya, Vishishtacharya, PhD (Varanasi).
+
+Lecturer in Business Management
+👤 Name: Dawa Tsamchoe
+📧 Email: dawatsamchoe@dalailamainstitute.edu.in
+📱 Phone: 6361587330
+📖 Profile: BBA (Madras University), MBA (HR & Finance). Experience in US staffing, IT recruitment. Academic excellence award winner.
+
+Institute Nurse
+👤 Name: Tsering Chodon (GNW)
+📖 Profile: Diploma in Nursing & Midwifery (Vijayawada). Experience in National Heart Institute & Bangalore hospitals.
+
+Computer Science Lecturer
+👤 Name: Harsha Hariharan
+📧 Email: harsha@dalailamainstitute.edu.in
+📱 Phone: 8086413390
+📖 Profile: MSc Computer Science. 6 years teaching, 2 years IT industry. Former web developer, software trainer.
+
+Commerce Lecturer
+👤 Name: Ngawang Lhamo
+📖 Profile: M.Com from Delhi University. Presented papers on influencer credibility and consumer engagement.
+
+English Lecturer
+👤 Name: Tenzin Tsepak
+📖 Profile: MA in English Literature (Delhi University).
+
+Computer Science Lecturer
+👤 Name: Rinchen Tso
+📧 Email: rinchen@dalailamainstitute.edu.in
+📱 Phone: 7019714208
+📖 Profile: Bachelor’s in CS (St. Joseph), Masters in Computer Applications (Chandigarh). Specializes in programming & networking.
+
+Mandarin Lecturer
+👤 Name: Dr. Lhamo Tso
+📧 Email: lhamotso@dalailamainstitute.edu.in | abigbodhitree@gmail.com
+📱 Phone: 9450168212
+📖 Profile: PhD in Social Work (BHU). Masters in Social Work (BHU). BA Psychology (BHU). Experienced researcher on Tibetans in exile.
+
+Commerce Lecturer
+👤 Name: Dawa Norbu
+📧 Email: dawanorbu@dalailamainstitute.edu.in
+📱 Phone: 9742577467
+📖 Profile: BCom & MCom from St. Philomena’s College. Research on employee performance & consumer behavior.
+
+Senior Accountant
+👤 Name: Tsering Dhondup
+📖 Profile: B.Com (St. Joseph). Former TCS HR/Payroll Specialist. Internship at CTA Audit Office.
+
+Geography Lecturer
+👤 Name: Ngawang Tendar
+📖 Profile: Masters in Geography (Punjab University), UGC NET qualified. Training in photogrammetry, hyperspectral sensing (ISRO).
+
+Journalism Lecturer
+👤 Name: Dr. Supriya M
+📖 Profile: MS Communication (Bangalore University). PhD on Public Relations in Karnataka Police. Teaching & examiner experience. Organized media conferences.
+
+Assistant Professor (AI & ML)
+👤 Name: Dr. Karma Gyatso
+📧 Email: karmagyatso@dalailamainstitute.edu.in
+📱 Phone: 8792172997
+📖 Profile: PhD in AI & ML (Jain University). Research on predictive ML models. MCA from Bangalore University. Published Scopus-indexed research papers.
+
+Secretary
+👤 Name: Mr. Lobsang Norbu
+📧 Email: secretary@dalailamainstitute.edu.in
+📱 Phone: 9611043855
+📖 Profile: Escaped Tibet at age 6. Educated at TCV Gopalpur. Active in academics & sports. Graduate of DLIHE, served as department monitor & sports organizer.
+
+English Lecturer
+👤 Name: Ms. Tenzin Donkar
+📧 Email: donkar@dalailamainstitute.edu.in
+📖 Profile: Master in English Literature (University of Mysore).
+
+Tibetan Lecturer
+👤 Name: Mr. Norbu
+📧 Email: norbu@dalailamainstitute.edu.in
+📖 Profile: PhD in Tibetan History, Acharya in Tibetan History (Sarnath).
+
+Commerce Lecturer
+👤 Name: Mr. Syed Amjed
+📧 Email: syed@dalailamainstitute.edu.in
+📖 Profile: M.Phil in Commerce (Vinayaka Mission), M.Com (Mysore University).
+
+Matron
+👤 Name: Mrs. Pempa Dolma
+📧 Email: pempa@dalailamainstitute.edu.in
+📖 Profile: BA from Delhi University.
+
+Computer Application Lecturer
+👤 Name: Mr. R Rachappa Naik
+📧 Email: rachappanaik@dalailamainstitute.edu.in
+📖 Profile: MSc Computer Science (Mysore University). Former BSc graduate.
+Scholarships – TCV
+
+TCV provides full scholarships to its wards enrolled at DLIHE, Bangalore.
+
+Specialisation scholarships may be announced from time to time based on merit, open to bona-fide Tibetan students.
+
+Scholarships apply only for full-time, regular courses approved by the TCV Scholarship Policy.
+
+After completing study/training, scholars must submit a written status report to TCV Scholarship Program Office.
+
+Placement opportunities may be provided within TCV or in the Tibetan community.
+
+DLIHE Scholarship & Merit Policy
+
+Scholarship forfeited if aggregate < 50%.
+
+Scholarship not renewed if a student fails a subject or is placed in ER category.
+
+Regular course students with < 85% attendance (but ≥ 75%) must pay their own exam fee.
+
+Specialized program students must maintain ≥ 85% attendance; otherwise considered dropped.
+
+Students with < 75% attendance in any subject will not be allowed to sit for exams (considered failed, must repeat semester; no scholarship for repeat semester).
+
+Merit Scholarship: ₹10,000 awarded annually to students scoring ≥ 85% (regular programs) or ≥ 90% (specialized programs).
+
+Students withdrawing before completing course must refund tuition, eligibility, registration, and exam fees to the University.
+
+Fee Structure
+
+Fees charged on a monthly basis (12 months/year).
+
+Payment due in two installments: January & July (or full payment at once).
+
+Payments must be made on time, either in cash or bank draft in the name of The Dalai Lama Institute for Higher Education, Bangalore.
+
+All students may register for TCV Mutual Health Insurance.
+
+Contact for Scholarships
+📧 Principal’s Office – For all scholarship-related matters, contact the Principal
