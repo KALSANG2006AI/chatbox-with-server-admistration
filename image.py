@@ -3,7 +3,6 @@ import json
 import subprocess
 import threading
 import face_recognition
-import numpy as np
 import ollama
 from flask import Flask, request, jsonify, send_from_directory
 
@@ -67,11 +66,23 @@ def search_data(query: str):
         e = college_data["events"]
         return f"Events: Sports meet ({e['sports_meet']}), Cultural festival ({e['cultural_festival']}). Clubs: {', '.join(e['clubs'])}."
 
-    # Fallback → Gemma
+    # Fallback → Ask Gemma, but force it to stick to the JSON
     try:
         response = ollama.chat(
             model="gemma:2b",
-            messages=[{"role": "user", "content": query}]
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "You are a strict assistant. "
+                        "Only answer from the following JSON data. "
+                        "If the answer is not explicitly present, reply with: "
+                        "'I don’t know from the data.'\n\n"
+                        f"{json.dumps(college_data, indent=2)}"
+                    )
+                },
+                {"role": "user", "content": query}
+            ]
         )
         return response["message"]["content"]
     except Exception as e:
@@ -103,7 +114,7 @@ def upload():
     match = face_recognition.compare_faces(staff_encodings, encodings[0])
     if True in match:
         idx = match.index(True)
-        return jsonify({"reply": f"Recognized: {staff_names[idx]}"})
+        return jsonify({"reply": f"Recognized: {staff_names[idx]}"} )
     return jsonify({"reply": "No match found."})
 
 # ------------------ Ngrok Tunnel ------------------
