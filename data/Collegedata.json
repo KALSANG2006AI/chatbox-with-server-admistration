@@ -1,0 +1,151 @@
+{
+  "institute": {
+    "name": "Dalai Lama Institute for Higher Education (DLIHE)",
+    "location": "Hunsur, Mysore, Karnataka, India",
+    "established": 1990,
+    "programs": [
+      "BCA",
+      "B.Com",
+      "BA",
+      "MSW",
+      "Diploma in Tibetan Studies"
+    ]
+  },
+  "administration": {
+    "principal": {
+      "name": "Dr. Tenzin Pasang",
+      "email": "principal@dalailamainstitute.edu.in",
+      "profile": "PhD in Physics (University of Mysore). Specialized in Positron Annihilation Spectroscopy. Former Director at Drepung Losel Ling Meditation and Science Centre. Worked with GE (USA) and Cavin Kare (India). Principal since 2015."
+    },
+    "administrator": {
+      "name": "Choegyal Tashi (Acharya)",
+      "email": "administrator@dalailamainstitute.edu.in",
+      "profile": "Acharya degree from Central University of Tibetan Studies. Former PGT & Headmaster at TCV Suja, Principal at TCV Ladakh, Headmaster at TCV Dharamshala."
+    },
+    "dean_regular_studies": {
+      "name": "Ngawang Gyatso",
+      "email": "dean-regular-studies@dalailamainstitute.edu.in",
+      "phone": "9071907889",
+      "profile": "10+ years teaching Indian History, Modern China & Japan. Served as warden, HOD, Dean. PhD Scholar at Christ University."
+    }
+  },
+  "departments": {
+    "computer_science": {
+      "head": "Rinchen Tso",
+      "courses": [
+        {
+          "year": 1,
+          "subjects": [
+            "Fundamentals of Computers",
+            "Programming in C",
+            "Mathematics for Computer Science",
+            "Environmental Science",
+            "Communication Skills"
+          ]
+        },
+        {
+          "year": 2,
+          "subjects": [
+            "Data Structures",
+            "Operating Systems",
+            "Database Management Systems",
+            "Object-Oriented Programming in Java",
+            "Web Development"
+          ]
+        },
+        {
+          "year": 3,
+          "subjects": [
+            "Software Engineering",
+            "Computer Networks",
+            "Mobile Application Development",
+            "Artificial Intelligence",
+            "Project Work"
+          ]
+        }
+      ]
+    },
+    "commerce": {
+      "head": "Tenzin Sangmo"
+    },
+    "arts": {
+      "head": "Tenzin Lamsang"
+    },
+    "social_work": {
+      "head": "Dr. Lhamo Tso"
+    },
+    "tibetan_studies": {
+      "head": "Dr. Kunchok A"
+    }
+  },
+  "facilities": {
+    "library": {
+      "timings": "9:00 AM - 6:00 PM (weekdays)",
+      "resources": [
+        "10,000+ books",
+        "Journals",
+        "Digital resources (IEEE, ACM, JSTOR)"
+      ],
+      "contact": "library@dlihe.edu.in"
+    },
+    "hostel": {
+      "separate_accommodation": true,
+      "mess_timings": {
+        "breakfast": "7:00 AM - 8:30 AM",
+        "lunch": "12:30 PM - 2:00 PM",
+        "dinner": "7:00 PM - 8:30 PM"
+      },
+      "visitor_timings": "5:00 PM - 8:00 PM",
+      "curfew": "9:00 PM",
+      "contact": "hostel@dlihe.edu.in"
+    },
+    "transport": {
+      "bus_service": "Mysore and nearby towns",
+      "parking": "Bicycle parking available",
+      "nearby": {
+        "railway_station": "Hunsur Junction (5 km)",
+        "airport": "Mysore Airport (40 km)"
+      }
+    }
+  },
+  "fees": {
+    "tuition_per_year": 25000,
+    "hostel_per_year": 30000,
+    "library_per_year": 1000,
+    "exam_per_semester": 2000
+  },
+  "scholarships": {
+    "tcv_scholarships": "Full scholarships for TCV wards enrolled at DLIHE.",
+    "merit_scholarship": "₹10,000 annually for students scoring ≥85% (regular) or ≥90% (specialized).",
+    "attendance_policy": {
+      "regular": "≥75% required, <85% must pay own exam fee.",
+      "specialized": "≥85% required, otherwise considered dropped."
+    }
+  },
+  "events": {
+    "sports_meet": "Every February",
+    "cultural_festival": "November",
+    "clubs": ["Debate", "Photography", "Running"],
+    "yoga": "Daily at 6:00 AM"
+  },
+  "academic_calendar": {
+    "semester_1": "July - November",
+    "semester_2": "December - April",
+    "mid_exams": ["October", "March"],
+    "final_exams": ["November", "April"],
+    "vacation": "May - June"
+  },
+  "support_services": {
+    "counseling": "Monday to Friday, 10 AM - 4 PM",
+    "career_guidance": true,
+    "placement_cell": true,
+    "scholarship_info": "Available on website"
+  },
+  "contacts": {
+    "admission": "admission@dlihe.edu.in",
+    "principal": "principal@dlihe.edu.in",
+    "library": "library@dlihe.edu.in",
+    "hostel": "hostel@dlihe.edu.in",
+    "emergency": "+91-9876543210"
+  }
+}

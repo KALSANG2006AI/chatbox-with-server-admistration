@@ -38,7 +38,7 @@ def ask():
 
 
 # ---------------------------
-# API endpoint for general chat
+# API endpoint for voice/general chat
 # ---------------------------
 @app.route("/chat", methods=["POST"])
 def chat():
@@ -59,7 +59,7 @@ def chat():
 
 
 # ---------------------------
-# Web UI route (only typed Q&A)
+# Web UI route with mic + TTS
 # ---------------------------
 @app.route("/", methods=["GET"])
 def home():
@@ -74,6 +74,7 @@ def home():
             .card { border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: background 0.3s, color 0.3s; }
             .answer-box { margin-top: 20px; padding: 15px; border-radius: 10px; display: none; transition: background 0.3s, color 0.3s; }
             #loading { display: none; }
+            #micBtn { margin-left: 10px; }
             /* Light Mode */
             body.light { background: #f8f9fa; color: #212529; }
             .card.light { background: #ffffff; color: #212529; }
@@ -95,6 +96,7 @@ def home():
                     <div class="input-group">
                         <input type="text" id="question" class="form-control" placeholder="Ask a question about the college...">
                         <button class="btn btn-primary" type="submit">Ask</button>
+                        <button id="micBtn" class="btn btn-danger" type="button">🎤</button>
                     </div>
                 </form>
                 <div id="loading" class="text-center mt-3 text-muted">⏳ Thinking...</div>
@@ -145,6 +147,60 @@ def home():
                     alert("Error getting answer. Please try again.");
                 });
             }
+
+            // 🎤 Mic button: voice to text → /chat
+            const micBtn = document.getElementById("micBtn");
+            const recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            let recorder;
+
+            if (recognition) {
+                recorder = new recognition();
+                recorder.lang = "en-US";
+                recorder.interimResults = false;
+
+                recorder.onresult = function(event) {
+                    const voiceText = event.results[0][0].transcript;
+                    document.getElementById("question").value = voiceText;
+                    sendVoiceMessage(voiceText);
+                };
+
+                micBtn.addEventListener("click", () => {
+                    recorder.start();
+                    micBtn.textContent = "🎙 Listening...";
+                    setTimeout(() => { micBtn.textContent = "🎤"; }, 3000);
+                });
+            } else {
+                micBtn.disabled = true;
+                micBtn.textContent = "🎤 (Not supported)";
+            }
+
+            // Send voice message to /chat
+            function sendVoiceMessage(message) {
+                document.getElementById("loading").style.display = "block";
+                document.getElementById("answer").style.display = "none";
+
+                fetch("/chat", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({message: message})
+                })
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("loading").style.display = "none";
+                    let answerBox = document.getElementById("answer");
+                    answerBox.style.display = "block";
+                    answerBox.innerHTML = `<strong>Bot:</strong> ${data.reply}`;
+                    
+                    // 🔊 Speak out the reply
+                    const speech = new SpeechSynthesisUtterance(data.reply);
+                    speech.lang = "en-US";
+                    window.speechSynthesis.speak(speech);
+                })
+                .catch(() => {
+                    document.getElementById("loading").style.display = "none";
+                    alert("Error with voice message. Please try again.");
+                });
+            }
         </script>
     </body>
     </html>
@@ -159,4 +215,4 @@ if __name__ == "__main__":
     print("🚀 Flask app is running!")
     print("🌍 Public URL:", tunnel.public_url)
 
-    app.run(host="0.0.0.0", port=5000, use_reloader=False)
+    app.run(host="0.0.0.0", port=5000, use_reloader=False) 

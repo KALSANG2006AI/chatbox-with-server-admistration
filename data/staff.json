@@ -1,0 +1,39 @@
+{
+  "staff": [
+    {
+      "name": "Dr. Tenzin Pasang",
+      "position": "Principal",
+      "image": "Tenzin_Pasang.jpg"
+    },
+    {
+      "name": "Choegyal Tashi",
+      "position": "Administrator",
+      "image": "chogyal_Tashi.jpg"
+    },
+    {
+      "name": "Ngawang Gyatso",
+      "position": "Dean of Regular Studies",
+      "image": "ngawang_gyaltso.jpg"
+    },
+    {
+      "name": "Rinchen Tso",
+      "position": "Head of Computer Science Department",
+      "image": "Rinchen_Tso.jpg"
+    },
+    {
+      "name": "Tenzin Sangmo",
+      "position": "Head of Commerce Department",
+      "image": "Tenzin_Sangmo.jpg"
+    },
+    {
+      "name": "Tenzin Lamsang",
+      "position": "Head of Arts Department",
+      "image": "tenzin_lamsang.jpg"
+    },
+    {
+      "name": "Dr. Kunchok A",
+      "position": "Head of Tibetan Studies Department",
+      "image": "Kunchok_A.jpg"
+    }
+  ]
+}

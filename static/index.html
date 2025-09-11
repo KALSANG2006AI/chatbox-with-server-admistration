@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DLIHE Chatbot</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; transition: background 0.3s, color 0.3s; }
+    body.light { background: #f5f5f5; color: #000; }
+    body.dark { background: #121212; color: #fff; }
+    .chat-container { max-width: 800px; margin: auto; padding: 20px; }
+    .chat-box { border: 1px solid #ccc; height: 400px; overflow-y: auto; padding: 10px; border-radius: 8px; background: #fff; color: #000; }
+    body.dark .chat-box { background: #222; color: #fff; }
+    .chat-message { margin: 5px 0; }
+    .chat-message.user { text-align: right; }
+    .chat-input { display: flex; margin-top: 10px; gap: 5px; }
+    input { flex: 1; padding: 8px; border-radius: 6px; border: 1px solid #aaa; }
+    button { padding: 8px 12px; border: none; border-radius: 6px; cursor: pointer; }
+    .mic-btn { background: #0077ff; color: white; }
+    .toggle-btn { background: #555; color: white; }
+  </style>
+</head>
+<body class="light">
+  <div class="chat-container">
+    <h2>💬 DLIHE Chatbot</h2>
+    <div id="chat-box" class="chat-box"></div>
+    <div class="chat-input">
+      <input type="text" id="user-input" placeholder="Type your message...">
+      <button onclick="sendMessage()">Send</button>
+      <button onclick="startMic()" class="mic-btn">🎤</button>
+      <button onclick="toggleTheme()" class="toggle-btn">🌗</button>
+      <input type="file" id="file-upload" accept="image/*" onchange="uploadFile()">
+    </div>
+  </div>
+
+<script>
+function appendMessage(sender, text) {
+  const box = document.getElementById("chat-box");
+  const div = document.createElement("div");
+  div.className = "chat-message " + sender;
+  div.textContent = sender.toUpperCase() + ": " + text;
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+
+async function sendMessage() {
+  const input = document.getElementById("user-input");
+  const message = input.value.trim();
+  if (!message) return;
+  appendMessage("user", message);
+  input.value = "";
+
+  const res = await fetch("/ask", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message })
+  });
+  const data = await res.json();
+  appendMessage("bot", data.reply);
+}
+
+async function uploadFile() {
+  const fileInput = document.getElementById("file-upload");
+  const file = fileInput.files[0];
+  if (!file) return;
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const res = await fetch("/upload", { method: "POST", body: formData });
+  const data = await res.json();
+  appendMessage("bot", data.reply);
+}
+
+function startMic() {
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recognition.lang = "en-US";
+  recognition.start();
+  recognition.onresult = function(event) {
+    const transcript = event.results[0][0].transcript;
+    document.getElementById("user-input").value = transcript;
+    sendMessage();
+  };
+}
+
+function toggleTheme() {
+  document.body.classList.toggle("dark");
+  document.body.classList.toggle("light");
+}
+</script>
+</body>
+</html>
