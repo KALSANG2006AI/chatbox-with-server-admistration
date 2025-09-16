@@ -4,83 +4,45 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from pyngrok import ngrok
 
-# Load and parse college data from JSON file
-try:
-    with open("data/Collegedata.json", "r", encoding="utf-8") as file:
-        college_data = json.load(file)  # Parse JSON into a Python dictionary
-    college_data_str = json.dumps(college_data, indent=2)  # Convert to string for prompt
-except FileNotFoundError:
-    print("Error: The file 'data/Collegedata.json' was not found.")
-    exit(1)
-except json.JSONDecodeError:
-    print("Error: The file contains invalid JSON.")
-    exit(1)
+# Load JSON data
+with open("data/Collegedata.json", "r", encoding="utf-8") as file:
+    college_data = json.load(file)
+college_data_str = json.dumps(college_data, indent=2)
 
 # Choose Ollama model
 model = "mistral:7b-instruct"
 
 # Create Flask app
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app)
 
-# ---------------------------
 # API endpoint to answer typed questions
-# ---------------------------
 @app.route("/ask", methods=["POST"])
 def ask():
     data = request.get_json()
-    question = data.get("message", "")  # Match HTML's 'message' key
+    question = data.get("message", "")
     if not question:
         return jsonify({"error": "No message provided"}), 400
 
-    try:
-        response = ollama.chat(
-            model=model,
-            messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        "You are an assistant that answers questions using only the provided college data. "
-                        "The data is in JSON format. Extract the relevant information from the JSON to answer the question in detail. "
-                        "If the information is not found in the provided data, respond with: 'I don't know based on the provided data.' "
-                        "Do not make up information or use external knowledge.\n\n"
-                        f"College data:\n{college_data_str}"
-                    )
-                },
-                {"role": "user", "content": question}
-            ]
-        )
-        answer = response['message']['content']
-        return jsonify({"reply": answer})  # Match HTML's 'reply' key
-    except Exception as e:
-        return jsonify({"error": f"Failed to get response from the model: {str(e)}"}), 500
+    response = ollama.chat(
+        model=model,
+        messages=[
+            {
+                "role": "system",
+                "content": (
+                    "You are an assistant that answers questions using only the provided college data. "
+                    "The data is in JSON format. Extract the relevant information from the JSON to answer the question in detail. "
+                    "If the information is not found in the provided data, respond with: 'I don't know based on the provided data.'\n\n"
+                    f"College data:\n{college_data_str}"
+                )
+            },
+            {"role": "user", "content": question}
+        ]
+    )
+    answer = response['message']['content']
+    return jsonify({"reply": answer})
 
-# ---------------------------
-# API endpoint for general chat
-# ---------------------------
-@app.route("/chat", methods=["POST"])
-def chat():
-    data = request.get_json()
-    user_message = data.get("message", "")
-    if not user_message:
-        return jsonify({"error": "No message provided"}), 400
-
-    try:
-        response = ollama.chat(
-            model=model,
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": user_message}
-            ]
-        )
-        reply = response['message']['content']
-        return jsonify({"reply": reply})
-    except Exception as e:
-        return jsonify({"error": f"Failed to get response from the model: {str(e)}"}), 500
-
-# ---------------------------
 # Web UI route
-# ---------------------------
 @app.route("/", methods=["GET"])
 def home():
     return '''
@@ -96,7 +58,6 @@ def home():
           font-family: 'Arial', sans-serif;
           transition: background 0.3s, color 0.3s;
         }
-        /* Light Mode */
         body.light {
           background: #f8f9fa;
           color: #212529;
@@ -108,7 +69,6 @@ def home():
         .chat-box.light {
           background: #f1f3f5;
         }
-        /* Dark Mode */
         body.dark {
           background: #121212;
           color: #e9ecef;
@@ -252,7 +212,6 @@ def home():
 
           button.textContent = body.classList.contains("dark") ? "☀ Light Mode" : "🌙 Dark Mode";
 
-          // Update existing bot messages for dark mode
           document.querySelectorAll(".chat-message.bot").forEach(msg => {
             msg.classList.toggle("dark");
           });
@@ -262,16 +221,9 @@ def home():
     </html>
     '''
 
-# ---------------------------
 # Run Flask + ngrok
-# ---------------------------
 if __name__ == "__main__":
     print("🚀 Starting Flask app...")
-    # Debugging: Print a sample of the loaded data to verify
-    print("Sample data loaded:", json.dumps(college_data.get("fees", {}), indent=2))
-    try:
-        tunnel = ngrok.connect(5000, bind_tls=True)
-        print("🌍 Public URL:", tunnel.public_url)
-        app.run(host="0.0.0.0", port=5000, use_reloader=False)
-    except Exception as e:
-        print(f"Error starting ngrok or Flask: {str(e)}")
+    tunnel = ngrok.connect(5000, bind_tls=True)
+    print("🌍 Public URL:", tunnel.public_url)
+    app.run(host="0.0.0.0", port=5000, use_reloader=False)

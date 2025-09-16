@@ -1,3 +1,4 @@
+
 import json
 import ollama
 import os
@@ -44,6 +45,10 @@ for member in staff_data["staff"]:
         # Open image with Pillow and verify format
         img = Image.open(img_path)
         print(f"🔍 Image format for {member['name']}: {img.format}, Mode: {img.mode}, Size: {img.size}")
+        # Ensure image is at least 100x100 pixels
+        if img.size[0] < 100 or img.size[1] < 100:
+            print(f"❌ Image too small for {member['name']} ({img_path}): {img.size}")
+            continue
         # Convert to RGB if not already
         if img.mode not in ("RGB", "L"):
             img = img.convert("RGB")
@@ -80,35 +85,44 @@ except json.JSONDecodeError:
 college_data_str = json.dumps(college_data, indent=2)
 staff_data_str = json.dumps(staff_data, indent=2)
 
-# Choose Ollama model
+# Improved system prompt
+system_prompt = (
+    "You are a strict assistant. Answer ONLY using the JSON data below.\n"
+    "You have two datasets: college and staff.\n"
+    "Staff entries have 'name', 'position', 'image'.\n"
+    "For staff queries, reply exactly like '{name} is the {position}.'\n"
+    "For college queries, answer based on the college data.\n"
+    "If the answer is NOT in the data, reply: 'I don’t know from the data.'\n"
+    "Do NOT guess or use information outside this data.\n\n"
+    "Examples:\n"
+    "User: Who is Dr. Tenzin Pasang?\n"
+    "Assistant: Dr. Tenzin Pasang is the Principal.\n"
+    "User: What is the tuition fee?\n"
+    "Assistant: The tuition fee is 25000.\n"
+    "User: Who is John Doe?\n"
+    "Assistant: I don’t know from the data.\n\n"
+    f"College data:\n{college_data_str}\n\n"
+    f"Staff data:\n{staff_data_str}"
+)
+
 model = "mistral:7b-instruct"
 
 # ------------------ Search Logic ------------------
 def search_data(query: str):
     try:
+        print(f"\n[DEBUG] Query sent to model:\n{query}")
         response = ollama.chat(
             model=model,
             messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        "You are a strict assistant. "
-                        "Only answer from the following JSON data (college and staff data). "
-                        "The college data contains information about facilities, fees, scholarships, events, etc. "
-                        "The staff data contains names, positions, and image file paths (e.g., [{'name': 'John Doe', 'position': 'Principal', 'image': 'John_Doe.jpg'}]). "
-                        "For staff queries, respond with '{name} is the {position}.' if the name or position is found, or 'I don’t know from the data.' if not. "
-                        "For other queries, extract relevant information from the college data. "
-                        "If the answer is not explicitly present, reply with: 'I don’t know from the data.' "
-                        "Do not make up information or use external knowledge.\n\n"
-                        f"College data:\n{college_data_str}\n\n"
-                        f"Staff data:\n{staff_data_str}"
-                    )
-                },
+                {"role": "system", "content": system_prompt},
                 {"role": "user", "content": query}
             ]
         )
-        return response["message"]["content"]
+        reply = response["message"]["content"]
+        print(f"[DEBUG] Response from model:\n{reply}\n")
+        return reply
     except Exception as e:
+        print(f"[ERROR] Ollama call failed: {e}")
         return f"⚠️ Error contacting model: {e}"
 
 # ------------------ Routes ------------------
@@ -131,7 +145,6 @@ def chat():
     user_message = data.get("message", "")
     if not user_message:
         return jsonify({"error": "No message provided"}), 400
-
     try:
         response = ollama.chat(
             model=model,
@@ -151,27 +164,32 @@ def upload():
         return jsonify({"reply": "No file uploaded."}), 400
     file = request.files["file"]
     try:
-        # Open image with Pillow and convert to RGB
+        # Open image with Pillow and verify format
         img = Image.open(file)
+        print(f"🔍 Uploaded image: Format: {img.format}, Mode: {img.mode}, Size: {img.size}")
+        # Ensure image is at least 100x100 pixels
+        if img.size[0] < 100 or img.size[1] < 100:
+            return jsonify({"reply": f"Image too small: {img.size}. Minimum size is 100x100 pixels."}), 400
+        # Convert to RGB if not already
         if img.mode not in ("RGB", "L"):
             img = img.convert("RGB")
         # Convert to numpy array for face_recognition
         img_array = np.array(img)
         encodings = face_recognition.face_encodings(img_array)
         if not encodings:
-            return jsonify({"reply": "No face detected."}), 400
-        match = face_recognition.compare_faces(staff_encodings, encodings[0])
+            return jsonify({"reply": "No face detected in the uploaded image."}), 400
+        match = face_recognition.compare_faces(staff_encodings, encodings[0], tolerance=0.5)
         if True in match:
             idx = match.index(True)
             return jsonify({"reply": f"Recognized: {staff_names[idx]}"})
         return jsonify({"reply": "No match found."})
     except Exception as e:
+        print(f"❌ Error processing uploaded image: {str(e)}")
         return jsonify({"reply": f"Error processing image: {str(e)}"}), 500
 
 # ------------------ Run Flask + ngrok ------------------
 if __name__ == "__main__":
     print("🚀 Starting Flask app...")
-    # Debugging: Print a sample of the loaded data to verify
     print("Sample college data:", json.dumps(college_data.get("fees", {}), indent=2))
     print("Sample staff data:", json.dumps(staff_data["staff"][:1], indent=2))
     try:

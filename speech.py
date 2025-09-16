@@ -1,3 +1,4 @@
+```python
 import json
 import ollama
 from flask import Flask, request, jsonify
@@ -56,7 +57,7 @@ def ask():
         return jsonify({"error": f"Failed to get response from the model: {str(e)}"}), 500
 
 # ---------------------------
-# API endpoint for general chat (including microphone input)
+# API endpoint for general chat
 # ---------------------------
 @app.route("/chat", methods=["POST"])
 def chat():
@@ -199,23 +200,32 @@ def home():
           </div>
           <div class="chat-input">
             <input type="text" id="user-input" class="form-control" placeholder="Type your message or ask about staff...">
-            <button onclick="sendMessage()" class="btn send-btn btn-primary">Send</button>
+            <button onclick="sendMessage(false)" class="btn send-btn btn-primary">Send</button>
             <button onclick="startMic()" class="btn mic-btn btn-danger">🎤</button>
           </div>
         </div>
       </div>
 
       <script>
-        function appendMessage(sender, text) {
+        let isSpeechInput = false; // Track if input was from speech
+
+        function appendMessage(sender, text, isSpeech = false) {
           const box = document.getElementById("chat-box");
           const div = document.createElement("div");
           div.className = `chat-message ${sender} ${sender === 'bot' && document.body.classList.contains('dark') ? 'dark' : ''}`;
           div.innerHTML = `<strong>${sender.toUpperCase()}:</strong> ${text}`;
           box.appendChild(div);
           box.scrollTop = box.scrollHeight;
+
+          // If the input was speech and this is a bot response, read it aloud
+          if (isSpeech && sender === 'bot') {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            window.speechSynthesis.speak(utterance);
+          }
         }
 
-        async function sendMessage() {
+        async function sendMessage(isSpeech = false) {
           const input = document.getElementById("user-input");
           const message = input.value.trim();
           if (!message) return;
@@ -231,14 +241,19 @@ def home():
             });
             const data = await res.json();
             document.getElementById("loading").style.display = "none";
-            appendMessage("bot", data.reply);
+            if (data.error) {
+              appendMessage("bot", data.error, isSpeech);
+            } else {
+              appendMessage("bot", data.reply, isSpeech);
+            }
           } catch {
             document.getElementById("loading").style.display = "none";
-            appendMessage("bot", "Error getting response. Please try again.");
+            appendMessage("bot", "Error getting response. Please try again.", isSpeech);
           }
         }
 
         function startMic() {
+          isSpeechInput = true; // Mark input as speech
           const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
           recognition.lang = "en-US";
           recognition.start();
@@ -247,10 +262,16 @@ def home():
             const transcript = event.results[0][0].transcript;
             document.getElementById("user-input").value = transcript;
             document.querySelector(".mic-btn").textContent = "🎤";
-            sendMessage();
+            sendMessage(true); // Pass isSpeech=true
           };
           recognition.onend = function() {
             document.querySelector(".mic-btn").textContent = "🎤";
+            isSpeechInput = false; // Reset after speech input
+          };
+          recognition.onerror = function(event) {
+            document.querySelector(".mic-btn").textContent = "🎤";
+            appendMessage("bot", "Error with speech recognition: " + event.error, true);
+            isSpeechInput = false;
           };
         }
 
@@ -292,3 +313,4 @@ if __name__ == "__main__":
         app.run(host="0.0.0.0", port=5000, use_reloader=False)
     except Exception as e:
         print(f"Error starting ngrok or Flask: {str(e)}")
+```
