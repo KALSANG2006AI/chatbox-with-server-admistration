@@ -25,16 +25,13 @@ chatbox-with-server-admistration/
 │ └── CollegeData.json # General college info (fees, departments, etc.)
 ├── speech.py # Main Flask application
 
-yaml
-Copy code
-
 ---
 
 ## Requirements
 
 To run this project, install the following Python packages:
 
-```bash
+
 pip install flask flask-cors face_recognition pillow pyngrok numpy ollama
 You will also need:
 
@@ -49,8 +46,6 @@ JSON data files in the correct format
 Running the App
 From the project directory:
 
-bash
-Copy code
 python speech.py
 After starting, the terminal will display a public ngrok URL where the app can be accessed.
 
