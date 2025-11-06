@@ -5,15 +5,12 @@ import os
 import face_recognition
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
-from pyngrok import ngrok
 from PIL import Image
 import numpy as np
 
-# Initialize Flask app
 app = Flask(__name__, static_folder="static")
-CORS(app)  # Enable CORS for all routes
+CORS(app)
 
-# ------------------ Load Staff Data ------------------
 try:
     with open("data/staff.json", "r", encoding="utf-8") as f:
         staff_data = json.load(f)
@@ -35,42 +32,37 @@ except ValueError as e:
 staff_encodings = []
 staff_names = []
 
-print("📂 Loading staff images...")
+print("Loading staff images...")
 for member in staff_data["staff"]:
     img_path = os.path.join("staff_images", member["image"])
     if not os.path.exists(img_path):
-        print(f"❌ Missing: {member['name']} ({img_path})")
+        print(f"Missing: {member['name']} ({img_path})")
         continue
     try:
-        # Open image with Pillow and verify format
         img = Image.open(img_path)
-        print(f"🔍 Image format for {member['name']}: {img.format}, Mode: {img.mode}, Size: {img.size}")
-        # Ensure image is at least 100x100 pixels
+        print(f"Image format for {member['name']}: {img.format}, Mode: {img.mode}, Size: {img.size}")
         if img.size[0] < 100 or img.size[1] < 100:
-            print(f"❌ Image too small for {member['name']} ({img_path}): {img.size}")
+            print(f"Image too small for {member['name']} ({img_path}): {img.size}")
             continue
-        # Convert to RGB if not already
         if img.mode not in ("RGB", "L"):
             img = img.convert("RGB")
-        # Convert to numpy array for face_recognition
         img_array = np.array(img)
         encodings = face_recognition.face_encodings(img_array)
         if not encodings:
-            print(f"❌ No face detected in image for {member['name']} ({img_path})")
+            print(f"No face detected in image for {member['name']} ({img_path})")
             continue
         encoding = encodings[0]
         staff_encodings.append(encoding)
         staff_names.append(member["name"])
-        print(f"✅ Loaded: {member['name']} ({img_path})")
+        print(f"Loaded: {member['name']} ({img_path})")
     except Exception as e:
-        print(f"❌ Error loading {member['name']} ({img_path}): {str(e)}")
+        print(f"Error loading {member['name']} ({img_path}): {str(e)}")
         continue
 
-print("🎯 Staff encoding complete.")
+print("Staff encoding complete.")
 if not staff_encodings:
-    print("⚠️ Warning: No valid staff images were loaded. Face recognition will not work.")
+    print("Warning: No valid staff images were loaded. Face recognition will not work.")
 
-# ------------------ Load College Data ------------------
 try:
     with open("data/CollegeData.json", "r", encoding="utf-8") as f:
         college_data = json.load(f)
@@ -81,16 +73,14 @@ except json.JSONDecodeError:
     print("Error: The file 'data/CollegeData.json' contains invalid JSON.")
     exit(1)
 
-# Combine JSON data for the prompt
 college_data_str = json.dumps(college_data, indent=2)
 staff_data_str = json.dumps(staff_data, indent=2)
 
-# Improved system prompt
 system_prompt = (
     "You are a strict assistant. Answer ONLY using the JSON data below.\n"
     "You have two datasets: college and staff.\n"
     "Staff entries have 'name', 'position', 'image'.\n"
-    "For staff queries, reply exactly like '{name} is the {position}.'\n"
+    "For staff queries, reply exactly like '{name} is the {position}."\n"
     "For college queries, answer based on the college data.\n"
     "If the answer is NOT in the data, reply: 'I don’t know from the data.'\n"
     "Do NOT guess or use information outside this data.\n\n"
@@ -107,7 +97,6 @@ system_prompt = (
 
 model = "mistral:7b-instruct"
 
-# ------------------ Search Logic ------------------
 def search_data(query: str):
     try:
         print(f"\n[DEBUG] Query sent to model:\n{query}")
@@ -123,9 +112,8 @@ def search_data(query: str):
         return reply
     except Exception as e:
         print(f"[ERROR] Ollama call failed: {e}")
-        return f"⚠️ Error contacting model: {e}"
+        return f"Error contacting model: {e}"
 
-# ------------------ Routes ------------------
 @app.route("/")
 def home():
     return send_from_directory(app.static_folder, "index.html")
@@ -164,16 +152,12 @@ def upload():
         return jsonify({"reply": "No file uploaded."}), 400
     file = request.files["file"]
     try:
-        # Open image with Pillow and verify format
         img = Image.open(file)
-        print(f"🔍 Uploaded image: Format: {img.format}, Mode: {img.mode}, Size: {img.size}")
-        # Ensure image is at least 100x100 pixels
+        print(f"Uploaded image: Format: {img.format}, Mode: {img.mode}, Size: {img.size}")
         if img.size[0] < 100 or img.size[1] < 100:
             return jsonify({"reply": f"Image too small: {img.size}. Minimum size is 100x100 pixels."}), 400
-        # Convert to RGB if not already
         if img.mode not in ("RGB", "L"):
             img = img.convert("RGB")
-        # Convert to numpy array for face_recognition
         img_array = np.array(img)
         encodings = face_recognition.face_encodings(img_array)
         if not encodings:
@@ -184,17 +168,11 @@ def upload():
             return jsonify({"reply": f"Recognized: {staff_names[idx]}"})
         return jsonify({"reply": "No match found."})
     except Exception as e:
-        print(f"❌ Error processing uploaded image: {str(e)}")
+        print(f"Error processing uploaded image: {str(e)}")
         return jsonify({"reply": f"Error processing image: {str(e)}"}), 500
 
-# ------------------ Run Flask + ngrok ------------------
 if __name__ == "__main__":
-    print("🚀 Starting Flask app...")
+    print("Starting Flask app...")
     print("Sample college data:", json.dumps(college_data.get("fees", {}), indent=2))
     print("Sample staff data:", json.dumps(staff_data["staff"][:1], indent=2))
-    try:
-        tunnel = ngrok.connect(5000, bind_tls=True)
-        print("🌍 Public URL:", tunnel.public_url)
-        app.run(host="0.0.0.0", port=5000, use_reloader=False)
-    except Exception as e:
-        print(f"Error starting ngrok or Flask: {str(e)}")
+    app.run(host="0.0.0.0", port=5000, use_reloader=False)

@@ -1,65 +1,103 @@
-# Chatbox with Server Administration and Face Recognition
+Chatbox with Server Administration and Face Recognition
+Project Objective
 
-This project is a Flask-based web application that integrates AI-powered responses using Ollama, facial recognition using the `face_recognition` library, and structured Q&A based on college and staff data in JSON format. It includes endpoints for general chat, structured queries, and image-based face recognition. The app is designed for use in a campus environment and is deployable publicly via ngrok.
+The goal of this project is to design and develop an intelligent web-based chat system that integrates artificial intelligence, facial recognition, and structured data management.
+It was created independently as a personal research and learning project to explore the intersection of AI, computer vision, and web development.
+The system acts as a virtual assistant capable of answering college-related questions, recognizing staff members from uploaded images, and holding general AI-based conversations.
 
----
+Overview
 
-## Features
+This is a Flask-based web application that combines AI-generated responses using Ollama, facial recognition through the face_recognition library, and structured Q&A using JSON data.
+It demonstrates how data-driven systems, machine learning models, and web technologies can be integrated into a single interactive platform.
+The project is designed for a campus context but can be adapted for other organizations and domains.
 
-- AI chatbot using `mistral:7b-instruct` via Ollama
-- Structured responses based on local JSON data (`staff.json` and `CollegeData.json`)
-- Face recognition to identify staff members from uploaded images
-- Secure file handling and verification using Pillow
-- Public deployment via ngrok
-- CORS-enabled Flask backend
+Features
 
----
+AI chatbot using the mistral:7b-instruct model via Ollama
 
-## Project Structure
+Structured answers from local JSON data (staff.json, CollegeData.json)
 
-chatbox-with-server-admistration/
-├── static/ # Static files (e.g., index.html)
-├── staff_images/ # Staff photos used for recognition
+Face recognition for identifying staff members from uploaded images
+
+Image verification and preprocessing using Pillow
+
+Flask backend with CORS-enabled communication
+
+Optional deployment via ngrok for public access
+
+Technologies Used
+
+Language: Python
+
+Framework: Flask
+
+AI Model: Mistral 7B (via Ollama)
+
+Libraries:
+
+flask and flask-cors – web application and API
+
+face_recognition – face detection and encoding
+
+pillow – image processing
+
+numpy – numerical operations
+
+pyngrok – public deployment tunneling
+
+Data Format: JSON
+
+Frontend: HTML and JavaScript (in the static directory)
+
+Project Structure
+chatbox-with-server-administration/
+├── static/
+├── staff_images/
 ├── data/
-│ ├── staff.json # Staff data (name, image, position)
-│ └── CollegeData.json # General college info (fees, departments, etc.)
-├── speech.py # Main Flask application
+│   ├── staff.json
+│   └── CollegeData.json
+├── speech.py
 
----
+Requirements
 
-## Requirements
-
-To run this project, install the following Python packages:
-
+Install the following Python dependencies:
 
 pip install flask flask-cors face_recognition pillow pyngrok numpy ollama
-You will also need:
 
-Ollama installed and running
 
-A compatible model (e.g., mistral:7b-instruct) pulled
+Setup steps:
 
-Valid staff images saved in the staff_images/ directory
+Install and run Ollama
 
-JSON data files in the correct format
+Pull the required model:
 
-Running the App
-From the project directory:
+ollama pull mistral:7b-instruct
+
+
+Place valid staff images in the staff_images directory
+
+Ensure that staff.json and CollegeData.json are correctly formatted in the data directory
+
+Running the Application
+
+Start the application using:
 
 python speech.py
-After starting, the terminal will display a public ngrok URL where the app can be accessed.
+
+
+It will be available at http://localhost:5000.
+If ngrok is configured, a public link will also be generated for remote access.
 
 API Endpoints
 Endpoint	Method	Description
-/	GET	Loads the main static page (index.html)
-/ask	POST	Accepts a message and returns a structured answer based on JSON data
-/chat	POST	Sends a general chat message to the AI model
-/upload	POST	Accepts an image and returns matched staff name, if found
+/	GET	Loads the main interface
+/ask	POST	Returns structured answers from JSON data
+/chat	POST	Sends a message to the AI model
+/upload	POST	Identifies staff members from uploaded images
+JSON Format Examples
 
-JSON Format Guidelines
 staff.json
-json
-Copy code
+
 {
   "staff": [
     {
@@ -69,28 +107,49 @@ Copy code
     }
   ]
 }
+
+
 CollegeData.json
-json
-Copy code
+
 {
   "fees": {
     "tuition": 25000,
     "hostel": 8000
   }
 }
+
 Notes
-All staff images must be at least 100x100 pixels and stored in the staff_images/ directory.
 
-If no valid faces are found in the images, face recognition will not function.
+Images should be at least 100x100 pixels for accurate recognition
 
-JSON files must be correctly formatted; the app will not run if they are invalid.
+The system will skip images without valid face data
 
-ngrok is used to expose the local server publicly; ensure it's properly configured.
+JSON files must be properly formatted; otherwise, the server will stop with an error
+
+Use ngrok to make the local Flask server publicly accessible for testing
+
+Learning Outcomes
+
+Developing this project independently helped me:
+
+Understand how AI models can be integrated with Flask applications
+
+Work with facial recognition and image processing in Python
+
+Structure and handle JSON data for interactive systems
+
+Build and test REST APIs
+
+Deploy and manage small-scale intelligent applications
 
 Author
-Made by Kalsang Phunjung,
-Student at The Dalai Lama Institute for Higher Education (DLIHE)
-Contributor to the campus newsletter and active participant in tech events.
+
+Kalsang Phunjung
+Independent Developer & Undergraduate Student
+Department of Computer Applications
+The Dalai Lama Institute for Higher Education (DLIHE)
 
 License
-This project is developed for educational and academic purposes. No commercial license is granted.
+
+This project was created independently for educational and research exploration.
+It is open for learning and experimentation but not intended for commercial use.
